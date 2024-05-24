@@ -1,0 +1,2 @@
+//Setup webpack => build jsx => .js
+=== Build JSX => Terminal => npx webpack

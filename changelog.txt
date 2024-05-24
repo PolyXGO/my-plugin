@@ -1,0 +1,7 @@
+== Changelog ==
+
+This file contains only old changelog. See readme.txt for newer versions.
+
+= 1.0.1 (May 24, 2024) =
+
+* Integrated with Bootstrap version 5.3.3
