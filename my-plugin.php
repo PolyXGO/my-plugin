@@ -3,7 +3,7 @@
 /**
  * Plugin Name: My Plugin
  * Description: A sample template to support faster development of WordPress plugins.
- * Version: 1.0.1
+ * Version: 1.0.2
  * Author: PolyXGO
  * Author URI: https://polyxgo.vn
  * Donate link: https://paypal.me/polyxgo
@@ -45,6 +45,11 @@ if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && ($_SERVER['HTTP_X_FORWARDED_PRO
 	$_SERVER['HTTPS'] = 'on';
 }
 /**
+ * Plugin version
+ */
+define('MP_VERSION', '1.0.2');
+
+/**
  * Please remove when deploying the plugin.
  */
 define('PXG_DONATE', ' https://paypal.me/polyxgo');
@@ -58,11 +63,6 @@ define('MP_PLUGIN_SUPPORT_LINK', ' https://polyxgo.vn');
  * Plugin Path
  */
 define('MP_PATH', dirname(__FILE__));
-
-/**
- * Plugin version
- */
-define('MP_VERSION', '1.0.1');
 
 /**
  * Plugin Basename
