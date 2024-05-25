@@ -1,2 +1,9 @@
 //Setup webpack => build jsx => .js
 === Build JSX => Terminal => npx webpack
+
+// My Plugin
+====> Tích hợp các hàm hook, filter => khi phát triển các plugin hỗ trợ tính năng hook, filter.
+
+// PolyUtilities for WordPress // 
+====> Tích hợp tính năng pinned plugins, themes lên đầu danh sách plugin WordPress.
+====> Lọc Active/ Deactive tương tự PolyUtilities for PerfexCRM

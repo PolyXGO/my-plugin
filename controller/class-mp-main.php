@@ -247,6 +247,17 @@ class Mp_Main_Controller
 			30 // Vị trí hiển thị của menu trong danh sách menu admin (giá trị số nguyên, thay đổi số này để thay đổi vị trí)
 		);
 
+		// Trường hợp tên plugin và slug cài đặt đầu tiên có nhãn khác nhau thì cần khai báo thêm 1 submenu_page callback hàm menu_page bên trên gọi.
+		$slug_submenu_parent_admin_settings = $slug_admin_settings;
+		add_submenu_page(
+			$slug_admin_settings, // Slug của menu item chính
+			'My Setting',
+			'My Setting',
+			'manage_options',
+			$slug_submenu_parent_admin_settings, // Slug của trang trùng với slug menu
+			'MyPlugin_Settings_Controller::index'
+		);
+
 		// Thêm một submenu item vào menu item chính
 		$slug_submenu_admin_settings = $slug_admin_settings . '-submenu';
 		add_submenu_page(

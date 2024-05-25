@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) 2023 POLYXGO
  *
@@ -24,7 +25,7 @@
  */
 
 if (!defined('ABSPATH')) {
-	die('Cats cannot jump here');
+    die('Cats cannot jump here');
 }
 
 class Mp_Shortcode
