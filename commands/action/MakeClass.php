@@ -1,18 +1,6 @@
 <?php
 
 /**
- * Plugin Name: My Plugin
- * Description: A sample template to support faster development of WordPress plugins.
- * Version: 1.0.3
- * Author: PolyXGO
- * Author URI: https://polyxgo.vn
- * Donate link: https://paypal.me/polyxgo
- * Requires at least: 4.1
- * Tested up to: 6.5.3
- * Text Domain: my-plugin
- * Domain Path: /languages
- * Network: True
- * 
  * Copyright (C) 2023 POLYXGO
  *
  * This program is free software: you can redistribute it and/or modify
@@ -36,43 +24,46 @@
  * ╚═╝      ╚═════╝ ╚══════╝╚═╝   ╚═╝  ╚═╝ ╚═════╝  ╚═════╝ 
  */
 
-if (!defined('ABSPATH')) {
-	die('Cats cannot jump here');
+namespace Commands\Action;
+
+/**
+ * Plugin class prefix: MP_
+ */
+define('MP_PLUGIN_CLASS_PREFIX', 'MP');
+
+class MakeClass
+{
+    public function handle($args)
+    {
+        $className = $args[0] ?? null;
+        $toIndex = array_search('-to', $args);
+        $directory = $args[$toIndex + 1] ?? null;
+
+        if (!$className || !$directory) {
+            echo "Usage: php poly make:class <ClassName> -to <Directory>\n";
+            return;
+        }
+
+        $basePath = dirname(__DIR__, 2);
+        $fullDirectoryPath = $basePath . '/' . trim($directory, '/');
+
+        if (!is_dir($fullDirectoryPath)) {
+            mkdir($fullDirectoryPath, 0777, true);
+        }
+
+        $templatePath = __DIR__ . '/../template/class-template.php';
+        if (!file_exists($templatePath)) {
+            echo "Template file not found: $templatePath\n";
+            return;
+        }
+
+        $templateContent = file_get_contents($templatePath);
+
+        $classContent = str_replace(['Mp_MyClassName'], [MP_PLUGIN_CLASS_PREFIX . '_' . $className], $templateContent);
+
+        $file_name = 'class-' . strtolower(MP_PLUGIN_CLASS_PREFIX) . '-' . strtolower($className);
+        $filePath = rtrim($fullDirectoryPath, '/') . '/' . $file_name . '.php';
+        file_put_contents($filePath, $classContent);
+        echo "Class $className created successfully in $fullDirectoryPath.\n";
+    }
 }
-
-// Check SSL Mode
-if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && ($_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https')) {
-	$_SERVER['HTTPS'] = 'on';
-}
-/**
- * Plugin version
- */
-define('MP_VERSION', '1.0.3');
-
-/**
- * Please remove when deploying the plugin.
- */
-define('PXG_DONATE', ' https://paypal.me/polyxgo');
-
-/**
- * Contact support link
- */
-define('MP_PLUGIN_SUPPORT_LINK', ' https://polyxgo.vn');
-
-/**
- * Plugin Path
- */
-define('MP_PATH', dirname(__FILE__));
-
-/**
- * Plugin Basename
- */
-define('MP_PLUGIN_BASENAME', basename(MP_PATH) . '/' . basename(__FILE__));
-
-// Include loader
-require_once MP_PATH . DIRECTORY_SEPARATOR . 'loader.php';
-
-// =========================================================================
-// All app initialization is done in Mp_Main_Controller __constructor
-// =========================================================================
-$main_controller = new Mp_Main_Controller();

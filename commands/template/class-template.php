@@ -40,5 +40,6 @@ class Mp_MyClassName
     }
     public function __construct()
     {
+        //TODO: Good luck to you!
     }
 }

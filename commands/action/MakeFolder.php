@@ -1,18 +1,6 @@
 <?php
 
 /**
- * Plugin Name: My Plugin
- * Description: A sample template to support faster development of WordPress plugins.
- * Version: 1.0.3
- * Author: PolyXGO
- * Author URI: https://polyxgo.vn
- * Donate link: https://paypal.me/polyxgo
- * Requires at least: 4.1
- * Tested up to: 6.5.3
- * Text Domain: my-plugin
- * Domain Path: /languages
- * Network: True
- * 
  * Copyright (C) 2023 POLYXGO
  *
  * This program is free software: you can redistribute it and/or modify
@@ -36,43 +24,35 @@
  * ╚═╝      ╚═════╝ ╚══════╝╚═╝   ╚═╝  ╚═╝ ╚═════╝  ╚═════╝ 
  */
 
-if (!defined('ABSPATH')) {
-	die('Cats cannot jump here');
+namespace Commands\Action;
+
+class MakeFolder
+{
+    public function handle($args)
+    {
+        $folderName = $args[0] ?? null;
+        $toIndex = array_search('-to', $args);
+        $directory = $args[$toIndex + 1] ?? null;
+
+        if (!$folderName || !$directory) {
+            echo "Usage: php poly make:folder <FolderName> -to <Path>\n";
+            return;
+        }
+
+        $basePath = dirname(__DIR__, 2);
+        $fullDirectoryPath = $basePath . '/' . trim($directory, '/');
+
+        if (!is_dir($fullDirectoryPath)) {
+            mkdir($fullDirectoryPath, 0777, true);
+        }
+
+        $folderPath = rtrim($fullDirectoryPath, '/') . '/' . $folderName;
+
+        if (!is_dir($folderPath)) {
+            mkdir($folderPath, 0777, true);
+            echo "Folder $folderName created successfully in $fullDirectoryPath.\n";
+        } else {
+            echo "Folder $folderName already exists in $fullDirectoryPath.\n";
+        }
+    }
 }
-
-// Check SSL Mode
-if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && ($_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https')) {
-	$_SERVER['HTTPS'] = 'on';
-}
-/**
- * Plugin version
- */
-define('MP_VERSION', '1.0.3');
-
-/**
- * Please remove when deploying the plugin.
- */
-define('PXG_DONATE', ' https://paypal.me/polyxgo');
-
-/**
- * Contact support link
- */
-define('MP_PLUGIN_SUPPORT_LINK', ' https://polyxgo.vn');
-
-/**
- * Plugin Path
- */
-define('MP_PATH', dirname(__FILE__));
-
-/**
- * Plugin Basename
- */
-define('MP_PLUGIN_BASENAME', basename(MP_PATH) . '/' . basename(__FILE__));
-
-// Include loader
-require_once MP_PATH . DIRECTORY_SEPARATOR . 'loader.php';
-
-// =========================================================================
-// All app initialization is done in Mp_Main_Controller __constructor
-// =========================================================================
-$main_controller = new Mp_Main_Controller();

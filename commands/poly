@@ -1,0 +1,23 @@
+#!/usr/bin/env php
+<?php
+require __DIR__ . '/vendor/autoload.php';
+
+use Commands\Action\MakeClass;
+use Commands\Action\MakeFolder;
+
+$commands = [
+    'make:class' => MakeClass::class,
+    'make:folder' => MakeFolder::class,
+];
+
+$command = $argv[1] ?? null;
+$args = array_slice($argv, 2);
+
+if (!$command || !isset($commands[$command])) {
+    echo "Command not found.\n";
+    exit(1);
+}
+
+$commandClass = $commands[$command];
+$commandInstance = new $commandClass();
+$commandInstance->handle($args);
