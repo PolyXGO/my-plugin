@@ -220,6 +220,15 @@ class Mp_Main_Controller
 				<path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555l-4.2 2.568-.051-.105c-.666-1.3-2.363-1.917-3.699-1.25-1.336-.667-3.033-.05-3.699 1.25l-.05.105zM11.584 8.91l-.073.139L16 11.8V4.697l-4.003 2.447c.027.562-.107 1.163-.413 1.767Zm-4.135 3.05c-1.048-.693-1.84-1.39-2.398-2.082L.19 12.856A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144L10.95 9.878c-.559.692-1.35 1.389-2.398 2.081L8 12.324l-.551-.365ZM4.416 8.91c-.306-.603-.44-1.204-.413-1.766L0 4.697v7.104l4.49-2.752z"/>
 				<path d="M8 5.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132"/>
 				</svg>Donate</a>';
+				
+				// Use thickbox
+
+				// Ví dụ sử dụng thickbox hiển thị nội dung iframe.
+				$links[] = 	'<a href="https://data.polyxgo.com/api/v1/products?s=fahasa&si=2&TB_iframe=true&width=600&height=400" class="thickbox">Thickbox iframe</a>';
+
+				// Ví dụ sử dụng thickbox hiển thị nội dung của phần tử. Bạn có thể điều chỉnh lại theo nhu cầu dữ liệu hiển thị từ: API, template file,...
+				$links[] = 	'<a href="#TB_inline?width=600&height=400&inlineId=hidden-content" class="thickbox">Thickbox content</a>
+				<div id="hidden-content" style="display:none;"> <h1>Plugin Details</h1> <p>Here are the details of the plugin.</p> </div>';
 		}
 
 		return $links;
@@ -320,6 +329,10 @@ class Mp_Main_Controller
 
 		// Include script $handle by...
 		wp_enqueue_script('mp_settings');
+
+		// Use thickbox
+		wp_enqueue_script('thickbox');
+    	wp_enqueue_style('thickbox');
 	}
 	public function register_gutenberg_blocks_scripts_and_styles() {
 		wp_register_script('block_scripts',
